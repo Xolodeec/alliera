@@ -38,7 +38,7 @@ abstract class CrmBaseModel
 
         foreach ($mapField as $fieldId => $var)
         {
-            if(!empty($this->$var) && $var !== 'id'){
+            if(!empty($this->$var)){
                 $fields[$fieldId] = $this->$var;
             }
         }
