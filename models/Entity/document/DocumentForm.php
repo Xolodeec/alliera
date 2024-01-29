@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace app\models\Entity\document;
 
 use app\models\BitrixCrm\Models\CrmBaseModel;
 use yii\base\Model;
@@ -45,27 +45,13 @@ class DocumentForm extends Model
 
     public function addDocument(CrmBaseModel $author)
     {
-        $commands['upload_document'] = \Yii::$app->bitrix->api()->buildCommand('disk.folder.uploadfile', [
-            'id' => 41,
-            'data' => [
-                'NAME' => "{$this->document->baseName}.{$this->document->extension}",
-            ],
-            'fileContent' => base64_encode(file_get_contents($this->fullPath)),
-            'generateUniqueName' => true,
-        ]);
+        $document = new Document();
+        $document->entityTypeId = 190;
+        $document->title = $this->name;
+        $document->contactId = $author->id;
+        $document->companyId = $author->getCompany()->id;
+        $document->setDocument("{$this->document->baseName}.{$this->document->extension}", base64_encode(file_get_contents($this->fullPath)));
 
-        $commands['add_document'] = \Yii::$app->bitrix->api()->buildCommand('lists.element.add', [
-            'IBLOCK_TYPE_ID' => 'lists',
-            'IBLOCK_ID' => 17,
-            'ELEMENT_CODE' => uniqid(),
-            'FIELDS' => [
-                'NAME' => $this->name,
-                'PROPERTY_70' => "CO_" . $author->getCompany()->id,
-                'PROPERTY_84' => '$result[upload_document][FILE_ID]',
-                'PROPERTY_90' => $author->id,
-            ],
-        ]);
-
-        return \Yii::$app->bitrix->api()->batchRequest($commands);
+        return \Yii::$app->bitrix->items()->create($document);
     }
 }

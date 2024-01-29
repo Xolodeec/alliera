@@ -21,11 +21,11 @@ $this->params['breadcrumbs'][] = $this->title;
         </tr>
         </thead>
         <tbody>
-        <?php if(!empty($documents)) : ?>
+        <?php if($documents->isNotEmpty()) : ?>
             <?php foreach($documents as $index => $document) : ?>
                 <tr>
                     <td class="text-center"><span class="bg-blue"><?= $index + 1 ?><span></td>
-                    <td class="title-task"><?= Html::a($document->name, \yii\helpers\Url::to(['upload-document', 'id' => $document->id])) ?></td>
+                    <td class="title-task"><?= Html::a($document->title, $document->getDownloadLink(), ['target' => '_blank']) ?></td>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>

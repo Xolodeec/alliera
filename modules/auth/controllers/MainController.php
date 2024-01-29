@@ -55,26 +55,6 @@ class MainController extends Controller
         return $this->render('login', ['model'=> $model]);
     }
 
-    public function actionSignUp()
-    {
-        $presets = RequisitePreset::getList();
-        $model = new SignUpForm;
-
-        if(\Yii::$app->request->isPost && $model->load(\Yii::$app->request->post()) && $model->validate())
-        {
-            if($model->save())
-            {
-                return $this->redirect('login');
-            }
-            else
-            {
-                Yii::$app->session->setFlash('unsuccessful', 'Неправильно указан телеграм ID, или вы не присоединились к нашему чат-боту');
-            }
-        }
-
-        return $this->render('sign-up', ['model' => $model, 'presets' => $presets]);
-    }
-
     public function actionReset()
     {
         $model = new ResetForm;

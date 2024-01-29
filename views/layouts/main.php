@@ -26,7 +26,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     <script src="https://kit.fontawesome.com/78d57075c0.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
-    <!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>-->
+    <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
 <body class="d-flex flex-column h-100">
@@ -50,21 +50,40 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     </div>
     <div class="collapse navbar-collapse">
         <nav class="navigation">
+            <li class="row g-0">
+                <div class="dropdown">
+                    <a href="javascript:void(0);" class="dropbtn-profile"><?= Yii::$app->user->identity->name ?></a>
+                    <div class="wrapper-profile">
+                        <ul id="list">
+                            <li><a href="<?= \yii\helpers\Url::to('/site/profile') ?>">Профиль</a></li>
+                            <li><a href="<?= \yii\helpers\Url::to('/auth/main/logout') ?>">Выход</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li class="row g-0">
+                <div class="col">
+                    <p>Остаток по счету:</p>
+                    <p><?= Yii::$app->user->identity->getCompany()->getAccountBalance() ?> ₽</p>
+                </div>
+            </li>
+            <li class="row g-0">
+                <div class="col">
+                    <p>Расчеты с БЦ:</p>
+                    <p><?= Yii::$app->user->identity->getCompany()->getSettlementAmount() ?> ₽</p>
+                </div>
+            </li>
+        </nav>
+        <nav class="navigation">
             <ul>
                 <li class="row g-0">
-                    <div class="col-1" style="margin-right: 20px">
-                        <i class="fa-solid fa-address-card"></i>
-                    </div>
-                    <div class="col">
-                        <a href="<?= \yii\helpers\Url::to('/site/profile') ?>">Профиль</a>
+                    <div class="col counter-document">
+                        <a href="<?= \yii\helpers\Url::to('/site/document') ?>">Документы для вас <span></span></a>
                     </div>
                 </li>
                 <li class="row g-0">
-                    <div class="col-1" style="margin-right: 20px">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                    </div>
                     <div class="col">
-                        <a href="<?= \yii\helpers\Url::to('/auth/main/logout') ?>"> Выход</a>
+                        <a href="<?= \yii\helpers\Url::to('/site/my-document') ?>">Документы от вас</a>
                     </div>
                 </li>
             </ul>
@@ -79,37 +98,41 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                 <img src="/src/alliera-logo.png" class="img-fluid">
             </div>
             <nav class="navigation">
+                <li class="row g-0">
+                    <div class="dropdown">
+                        <a href="javascript:void(0);" class="dropbtn-profile"><?= Yii::$app->user->identity->name ?></a>
+                        <div class="wrapper-profile">
+                            <ul id="list">
+                                <li><a href="<?= \yii\helpers\Url::to('/site/profile') ?>">Профиль</a></li>
+                                <li><a href="<?= \yii\helpers\Url::to('/auth/main/logout') ?>">Выход</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="row g-0">
+                    <div class="col">
+                        <p>Остаток по счету:</p>
+                        <p><?= Yii::$app->user->identity->getCompany()->getAccountBalance() ?> ₽</p>
+                    </div>
+                </li>
+                <li class="row g-0">
+                    <div class="col">
+                        <p>Расчеты с БЦ:</p>
+                        <p><?= Yii::$app->user->identity->getCompany()->getSettlementAmount() ?> ₽</p>
+                    </div>
+                </li>
+            </nav>
+
+            <nav class="navigation">
                 <ul>
                     <li class="row g-0">
-                        <div class="col-1" style="margin-right: 20px">
-                            <i class="fa-solid fa-address-card"></i>
-                        </div>
-                        <div class="col">
-                            <a href="<?= \yii\helpers\Url::to('/site/document') ?>">Документы для вас</a>
+                        <div class="col counter-document">
+                            <a href="<?= \yii\helpers\Url::to('/site/document') ?>">Документы для вас <span></span></a>
                         </div>
                     </li>
                     <li class="row g-0">
-                        <div class="col-1" style="margin-right: 20px">
-                            <i class="fa-solid fa-address-card"></i>
-                        </div>
                         <div class="col">
                             <a href="<?= \yii\helpers\Url::to('/site/my-document') ?>">Документы от вас</a>
-                        </div>
-                    </li>
-                    <li class="row g-0">
-                        <div class="col-1" style="margin-right: 20px">
-                            <i class="fa-solid fa-address-card"></i>
-                        </div>
-                        <div class="col">
-                            <a href="<?= \yii\helpers\Url::to('/site/profile') ?>">Профиль</a>
-                        </div>
-                    </li>
-                    <li class="row g-0">
-                        <div class="col-1" style="margin-right: 20px">
-                            <i class="fa-solid fa-right-from-bracket"></i>
-                        </div>
-                        <div class="col">
-                            <a href="<?= \yii\helpers\Url::to('/auth/main/logout') ?>"> Выход</a>
                         </div>
                     </li>
                 </ul>

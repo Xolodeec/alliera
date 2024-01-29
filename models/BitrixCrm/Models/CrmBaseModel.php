@@ -22,7 +22,7 @@ abstract class CrmBaseModel
     public function fromArray(array $contact):self
     {
         foreach ($contact as $fieldId => $value){
-            if($this->isDeclaredField($fieldId) && property_exists($this, $this->getPropertyField($fieldId)) && !empty($value)){
+            if($this->isDeclaredField($fieldId) && property_exists($this, $this->getPropertyField($fieldId))){
                 $propertyName = $this->getPropertyField($fieldId);
                 $this->$propertyName = $value;
             }
@@ -38,7 +38,7 @@ abstract class CrmBaseModel
 
         foreach ($mapField as $fieldId => $var)
         {
-            if(!empty($this->$var)){
+            if(!empty($this->$var) && $var !== 'id'){
                 $fields[$fieldId] = $this->$var;
             }
         }

@@ -2,20 +2,15 @@
 
 namespace app\controllers;
 
-use App\HTTP\HTTP;
-use app\models\BitrixCrm\Client\Client;
-use app\models\Document;
-use app\models\DocumentForm;
+use app\models\BitrixCrm\Collection\CollectionItems;
+use app\models\Entity\document\Document;
+use app\models\Entity\document\DocumentCollection;
+use app\models\Entity\document\DocumentForm;
 use app\models\ProfileForm;
-use Carbon\Carbon;
-use Tightenco\Collect\Support\Collection;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
-use yii\filters\VerbFilter;
-use app\models\LoginForm;
-use app\models\ContactForm;
 use yii\web\UploadedFile;
 
 class SiteController extends Controller
@@ -27,7 +22,7 @@ class SiteController extends Controller
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        'actions' => ['index', 'profile', 'my-document', 'add-document', 'document', 'logout'],
+                        'actions' => ['index', 'profile', 'my-document', 'add-document', 'document', 'get-counter-document', 'reset-counter-document', 'logout'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -75,14 +70,28 @@ class SiteController extends Controller
 
     public function actionMyDocument()
     {
-        $documents = Document::getListMyDocument(Yii::$app->user->identity->getCompany()->id);
+        $documents = Yii::$app->bitrix
+            ->items()
+            ->setItemModel(new Document())
+            ->getList([
+                'entityTypeId' => 190,
+                'order' => ['ID' => 'DESC'],
+                'filter' => ['=companyId' => Yii::$app->user->identity->getCompany()->id]
+            ]);
 
         return $this->render('my_document', ['documents' => $documents]);
     }
 
     public function actionDocument()
     {
-        $documents = Document::getListDocumentCompany(Yii::$app->user->identity->getCompany()->id);
+        $documents = Yii::$app->bitrix
+            ->items()
+            ->setItemModel(new Document())
+            ->getList([
+                'entityTypeId' => 177,
+                'order' => ['ID' => 'DESC'],
+                'filter' => ['=companyId' => Yii::$app->user->identity->getCompany()->id]
+            ]);
 
         return $this->render('document', ['documents' => $documents]);
     }
@@ -106,8 +115,36 @@ class SiteController extends Controller
         return $this->render('add_document', ['model' => $model]);
     }
 
-    public function actionAbout()
+    public function actionGetCounterDocument()
     {
-        return $this->render('about');
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $documents = Yii::$app->bitrix
+            ->items()
+            ->setItemModel(new Document())
+            ->getList([
+                'entityTypeId' => 177,
+                'order' => ['ID' => 'DESC'],
+                'filter' => ['=companyId' => Yii::$app->user->identity->getCompany()->id, '=stageId' => 'DT177_7:NEW'],
+                'start' => '-1',
+            ]);
+
+        return $documents->count();
+    }
+
+    public function actionResetCounterDocument()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        return Yii::$app->bitrix
+            ->items()
+            ->setItemModel(new Document())
+            ->setCollectionModel(new DocumentCollection())
+            ->getList([
+                'entityTypeId' => 177,
+                'order' => ['ID' => 'DESC'],
+                'filter' => ['=companyId' => Yii::$app->user->identity->getCompany()->id, '=stageId' => 'DT177_7:NEW']
+            ])
+            ->resetCounter();
     }
 }

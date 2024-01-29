@@ -33,4 +33,18 @@ class Company extends CompanyModel
 
         return $this;
     }
+
+    public function getAccountBalance()
+    {
+        $filteredValue = preg_replace('/[^0-9]/', '', $this->accountBalance);
+
+        return number_format($filteredValue, 2, ',', ' ');
+    }
+
+    public function getSettlementAmount()
+    {
+        $filteredValue = preg_replace('/[^0-9]/', '', $this->settlementAmount);
+
+        return number_format($filteredValue, 2, ',', ' ');
+    }
 }
