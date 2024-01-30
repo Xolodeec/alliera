@@ -52,6 +52,13 @@ class DocumentForm extends Model
         $document->companyId = $author->getCompany()->id;
         $document->setDocument("{$this->document->baseName}.{$this->document->extension}", base64_encode(file_get_contents($this->fullPath)));
 
-        return \Yii::$app->bitrix->items()->create($document);
+        $commands['create_items'] = \Yii::$app->bitrix->api()->buildCommand('crm.item.add', ['entityTypeId' => $document->entityTypeId, 'fields' => $document->collectFieldValue()]);
+        $commands['start_bizproc'] = \Yii::$app->bitrix->api()->buildCommand('bizproc.workflow.start', [
+            'TEMPLATE_ID' => 201,
+            'DOCUMENT_ID' => ['crm', 'Bitrix\Crm\Integration\BizProc\Document\Dynamic', 'DYNAMIC_190_$result[create_items][item][id]'],
+            'PARAMETERS' => ['COMPANY_ID' => $author->getCompany()->id],
+        ]);
+        
+        return \Yii::$app->bitrix->api()->batchRequest($commands);
     }
 }
