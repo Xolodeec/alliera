@@ -25,9 +25,32 @@ $(document).ready(function (){
         });
     }
 
+    function getUnpaidDocuments()
+    {
+        $.ajax({
+            type: 'GET',
+            url: '/site/unpaid-documents',
+            success: function (documents){
+                if(Object.keys(documents).length > 0){
+
+                    let html = "";
+
+                    for (let fileName in documents){
+                        let itemList = "<li><a href='" + documents[fileName] + "' target='_blank'>" + fileName + "</a></li>"
+
+                        html = html + itemList;
+                    }
+
+                    $('.wrapper-unpaidDocument ul').html(html);
+                }
+            },
+        });
+    }
+
     $(document).on('click', '.counter-document', function (){
         resetCounterDocuments();
     });
 
     getCounterDocuments();
+    getUnpaidDocuments();
 });

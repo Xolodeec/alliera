@@ -56,7 +56,7 @@ class DocumentForm extends Model
         $commands['start_bizproc'] = \Yii::$app->bitrix->api()->buildCommand('bizproc.workflow.start', [
             'TEMPLATE_ID' => 201,
             'DOCUMENT_ID' => ['crm', 'Bitrix\Crm\Integration\BizProc\Document\Dynamic', 'DYNAMIC_190_$result[create_items][item][id]'],
-            'PARAMETERS' => ['COMPANY_ID' => $author->getCompany()->id],
+            'PARAMETERS' => ['COMPANY_ID' => "CO_{$author->getCompany()->id}"],
         ]);
 
         return \Yii::$app->bitrix->api()->batchRequest($commands);

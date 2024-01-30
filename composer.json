@@ -21,7 +21,8 @@
         "tightenco/collect": "^8.83",
         "symfony/string": "^5.4",
         "nesbot/carbon": "^2.71",
-        "andrey-tech/http-client-php": "^3.0"
+        "andrey-tech/http-client-php": "^3.0",
+        "guzzlehttp/guzzle": "^7.8"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

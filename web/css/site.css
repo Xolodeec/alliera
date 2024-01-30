@@ -328,21 +328,19 @@ input, textarea{
 }
 
 .wrapper-profile {
-    overflow: hidden;
+    display: none;
     transition: max-height 300ms;
-    max-height: 0; /* <---hide by default */
 }
 .wrapper-profile.open {
-    max-height: 90px; /* <---when open, allow content to expand to take up as much height as it needs, up to e.g. 100px */
+    display: block;
 }
 
-.wrapper-order {
-    overflow: hidden;
+.wrapper-unpaidDocument {
+    display: none;
     transition: max-height 300ms;
-    max-height: 0; /* <---hide by default */
 }
-.wrapper-order.open {
-    max-height: 90px; /* <---when open, allow content to expand to take up as much height as it needs, up to e.g. 100px */
+.wrapper-unpaidDocument.open {
+    display: block;
 }
 
 @media (min-width: 767px) {
@@ -643,4 +641,16 @@ input, textarea{
     #header .logo{
         width: 20%;
     }
+}
+
+#list{
+    word-wrap: break-word;
+}
+
+#list li a{
+    font-weight: 400;
+}
+
+#list li a:hover{
+    text-decoration: underline;
 }

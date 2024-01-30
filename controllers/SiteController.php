@@ -23,7 +23,7 @@ class SiteController extends Controller
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        'actions' => ['index', 'profile', 'my-document', 'add-document', 'document', 'get-counter-document', 'reset-counter-document', 'logout'],
+                        'actions' => ['index', 'profile', 'my-document', 'add-document', 'document', 'get-counter-document', 'reset-counter-document', 'unpaid-documents', 'logout'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -147,5 +147,12 @@ class SiteController extends Controller
                 'filter' => ['=companyId' => Yii::$app->user->identity->getCompany()->id, '=ufCrm4_1706615956444' => "0"]
             ])
             ->resetCounter();
+    }
+
+    public function actionUnpaidDocuments()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        return Yii::$app->user->identity->getCompany()->getUnpaidBillDocuments();
     }
 }

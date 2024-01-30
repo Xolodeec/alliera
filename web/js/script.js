@@ -9,4 +9,10 @@ $(document).ready(function (){
     rb.click(function() {
         rw.toggleClass('open'); /* <-- toggle the application of the open class on click */
     });
+
+    var ub = $(".dropbtn-unpaidDocument");
+    var uw = $(".wrapper-unpaidDocument");
+    ub.click(function() {
+        uw.toggleClass('open'); /* <-- toggle the application of the open class on click */
+    });
 });

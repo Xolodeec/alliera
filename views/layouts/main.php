@@ -69,8 +69,19 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             </li>
             <li class="row g-0">
                 <div class="col">
-                    <p>Расчеты с БЦ:</p>
-                    <p><?= Yii::$app->user->identity->getCompany()->getSettlementAmount() ?> ₽</p>
+                    <div class="dropdown">
+                        <a href="javascript:void(0);" class="dropbtn-unpaidDocument">
+                            <p>Расчеты с БЦ:</p>
+                            <p><?= Yii::$app->user->identity->getCompany()->getSettlementAmount() ?> ₽</p>
+                        </a>
+                        <div class="wrapper-unpaidDocument">
+                            <ul id="list">
+                                <li>
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Загружаю...
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </li>
         </nav>
@@ -117,8 +128,19 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                 </li>
                 <li class="row g-0">
                     <div class="col">
-                        <p>Расчеты с БЦ:</p>
-                        <p><?= Yii::$app->user->identity->getCompany()->getSettlementAmount() ?> ₽</p>
+                        <div class="dropdown">
+                            <a href="javascript:void(0);" class="dropbtn-unpaidDocument">
+                                <p>Расчеты с БЦ:</p>
+                                <p><?= Yii::$app->user->identity->getCompany()->getSettlementAmount() ?> ₽</p>
+                            </a>
+                            <div class="wrapper-unpaidDocument">
+                                <ul id="list">
+                                    <li>
+                                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Загружаю...
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </li>
             </nav>
