@@ -10,12 +10,15 @@ class Company extends CompanyModel
     public $accountBalance = 0;
     public $settlementAmount = 0;
 
+    protected $unpaidBillDocuments;
+
     public static function mapField()
     {
         $mapFields = collect(parent::mapField());
         $mapFields->put('UF_CRM_1637129344', 'isExistContract');
         $mapFields->put('UF_CRM_1634717739692', 'accountBalance');
         $mapFields->put('UF_CRM_1634718891268', 'settlementAmount');
+        $mapFields->put('UF_CRM_1634718945571', 'unpaidBillDocuments');
 
         return $mapFields->toArray();
     }

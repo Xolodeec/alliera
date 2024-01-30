@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\BitrixCrm\Client\Client;
 use app\models\BitrixCrm\Collection\CollectionItems;
 use app\models\Entity\document\Document;
 use app\models\Entity\document\DocumentCollection;
@@ -125,7 +126,7 @@ class SiteController extends Controller
             ->getList([
                 'entityTypeId' => 177,
                 'order' => ['ID' => 'DESC'],
-                'filter' => ['=companyId' => Yii::$app->user->identity->getCompany()->id, '=stageId' => 'DT177_7:NEW'],
+                'filter' => ['=companyId' => Yii::$app->user->identity->getCompany()->id, '=ufCrm4_1706615956444' => "0"],
                 'start' => '-1',
             ]);
 
@@ -143,7 +144,7 @@ class SiteController extends Controller
             ->getList([
                 'entityTypeId' => 177,
                 'order' => ['ID' => 'DESC'],
-                'filter' => ['=companyId' => Yii::$app->user->identity->getCompany()->id, '=stageId' => 'DT177_7:NEW']
+                'filter' => ['=companyId' => Yii::$app->user->identity->getCompany()->id, '=ufCrm4_1706615956444' => "0"]
             ])
             ->resetCounter();
     }

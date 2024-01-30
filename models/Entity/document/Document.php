@@ -6,6 +6,8 @@ use app\models\BitrixCrm\Models\ItemModel;
 
 class Document extends ItemModel
 {
+    public $isViewed;
+
     protected $document;
 
     public static function mapField()
@@ -13,6 +15,7 @@ class Document extends ItemModel
         $mapFields = collect(parent::mapField());
         $mapFields->put('ufCrm3_1706557018432', 'document');
         $mapFields->put('ufCrm4_1706560935680', 'document');
+        $mapFields->put('ufCrm4_1706615956444', 'isViewed');
 
         return $mapFields->toArray();
     }

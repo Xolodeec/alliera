@@ -25,4 +25,14 @@ class ItemModel extends CrmBaseModel
             'stageId' => 'stageId',
         ];
     }
+
+    public function collectFieldValue(): array
+    {
+        $data = collect(parent::collectFieldValue());
+        $data = $data->filter(function ($item, $key){
+           return $key != 'id' && $key != 'ID';
+        });
+
+        return $data->toArray();
+    }
 }

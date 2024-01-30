@@ -10,7 +10,7 @@ class DocumentCollection extends CollectionItems
     {
         foreach ($this->items as &$document)
         {
-            $document->stageId = 'DT177_7:PREPARATION';
+            $document->isViewed = "true";
         }
 
         return \Yii::$app->bitrix->items()->multipleUpdate($this);
