@@ -58,7 +58,7 @@ class DocumentForm extends Model
             'DOCUMENT_ID' => ['crm', 'Bitrix\Crm\Integration\BizProc\Document\Dynamic', 'DYNAMIC_190_$result[create_items][item][id]'],
             'PARAMETERS' => ['COMPANY_ID' => $author->getCompany()->id],
         ]);
-        
+
         return \Yii::$app->bitrix->api()->batchRequest($commands);
     }
 }
