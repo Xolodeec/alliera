@@ -41,6 +41,8 @@ class Company extends CompanyModel
 
     public function getAccountBalance()
     {
+        $this->accountBalance = empty($this->accountBalance) ? 0 : $this->accountBalance;
+
         $filteredValue = preg_replace('/[^0-9]/', '', $this->accountBalance);
 
         return number_format($filteredValue, 2, ',', ' ');
@@ -48,6 +50,8 @@ class Company extends CompanyModel
 
     public function getSettlementAmount()
     {
+        $this->settlementAmount = empty($this->settlementAmount) ? 0 : $this->settlementAmount;
+
         $filteredValue = preg_replace('/[^0-9]/', '', $this->settlementAmount);
 
         return number_format($filteredValue, 2, ',', ' ');
@@ -81,7 +85,7 @@ class Company extends CompanyModel
 
                 $fileName = $matches[1];
                 $filePath = \Yii::getAlias('@app') . "/web/src/unpaid_documents/{$fileName}";
-                $fileUrl = "https://test02.uchetprosto.ru/src/unpaid_documents/{$fileName}";
+                $fileUrl = "https://cabinet.alliera.ru/src/unpaid_documents/{$fileName}";
 
                 file_put_contents($filePath,  $response->getBody()->getContents());
 

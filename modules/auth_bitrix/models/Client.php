@@ -46,7 +46,7 @@ class Client
 
         $model->client_id = $appsConfig["Доступы"]["client_id"];
         $model->client_secret = $appsConfig["Доступы"]["client_secret"];
-        $model->client_endpoint = Yii::$app->params["bitrix"]["rest_url"];
+        $model->client_endpoint = 'https://portal.alliera.ru/rest/';
 
         return $model;
     }

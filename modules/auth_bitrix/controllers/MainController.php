@@ -9,6 +9,7 @@ use app\modules\auth_bitrix\models\Client;
 class MainController extends Controller
 {
     public $enableCsrfValidation = false;
+    public $layout = 'main';
 
     public function runAction($id, $params = [])
     {

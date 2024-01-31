@@ -7,6 +7,8 @@ use app\models\Entity\Contact;
 
 class User extends Contact implements \yii\web\IdentityInterface
 {
+    public $authKey;
+
     public static function findIdentity($id)
     {
         $user = new static();
